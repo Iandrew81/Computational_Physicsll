@@ -4,11 +4,16 @@ import numpy as np
 
 class Advection:
 
-    def __init__(self,n_cells,p_veloc,num_periods):
+    def __init__(self,shape,n_cells,p_veloc,num_periods):
         # limits:
-        self.xmin = 0.
-        self.xmax = 1.
+        if shape == "top_hat":
+            self.xmin = 0.
+            self.xmax = 1.
+        elif shape == "gaussian":
+            self.xmin = -2
+            self.xmax = 2
 
+        self.shape = shape
         # Number of cells
         self.nx = n_cells
 
@@ -37,8 +42,8 @@ class Advection:
         # Maximmum simulation time
         self.tmax = self.num_periods*self.period
         
-    def forms(self,shape):
-        if shape == "top_hat":
+    def forms(self):
+        if self.shape == "top_hat":
 
             # Empty vector for the solution in double precision:
             a = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
@@ -48,11 +53,10 @@ class Advection:
             a[np.logical_and(self.x >= 1./3., self.x <= 2./3.)] = 1.
             return a
         
-        elif shape == "gaussian":
+        elif self.shape == "gaussian":
             # Empty vector for the solution in double precision:
-            x = np.linspace(self.xmin, self.ng, self.nx, dtype = np.float64)
-            
-            a = np.exp(-0.5*(x/-.4)**2)
+             
+            a = np.exp(-0.5*(self.x/-.4)**2)
             # Add initial conditions:
             return a
 
@@ -80,11 +84,18 @@ class Advection:
                 return b
             else:
                 return 0.0
+        def maxmod(a, b):
+            if abs(a) > abs(b) and a*b > 0.0:
+                return a
+            elif abs(b) > abs(a) and a*b > 0.0:
+                return a
+            else: 
+                return 0.0
 
-   
         # Empty vector for the slope
         slope = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
-        r = np.zeros((self.nx + 2*self.ng), dtype = np.float64) 
+        r = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
+        
         if method == "godunov":
             # 1st approach: Godunov approach
             slope[:] = 0. 
@@ -101,17 +112,22 @@ class Advection:
             for i in range(self.ilo - 1, self.ihi + 2):
                 slope[i] = minmod(minmod(2*(a[i] - a[i-1])/self.dx, 2*(a[i+1]\
                        - a[i])/self.dx), 0.5*(a[i+1] - a[i-1])/self.dx) 
-        elif method == "superbee":
+        elif method == "superbee1":
             #5th approach: Superbee limiter
             for i in range(self.ilo-1, self.ihi +2):
                 r[i] = (a[i]-a[i-1])/(a[i+1]-a[i])
-                slope[i] = max(0,min(2*r[i],1),min(r[i],2))
-        elif method == "van_leer":
-            #5th approach: Van Leer limiter
+                slope[i] = maxmod(minmod(2*r[i],1),minmod(r[i],2)) 
+        elif method == "superbee2":
             for i in range(self.ilo-1, self.ihi +2):
-                r[i] = (a[i]-a[i-1])/(a[i+1]-a[i])
-                slope[i] = (r[i]+np.abs(r[i]))/(1+np.abs(r[i]))
-
+                A = minmod( (a[i+1] - a[i])/dx, 2.0*(a[i] - a[i-1])/self.dx )
+                B = minmod( (a[i] - a[i-1])/dx, 2.0*(a[i+1] - a[i])/self.dx )
+                slope[i] = maxmod(A, B)     
+        elif method == "van_leer":
+            #6th approach: Van Leer limiter
+            for i in range(self.ilo-1, self.ihi +2):
+                r = (a[i]-a[i-1])/(a[i+1]-a[i])
+                slope[i] = (r+np.abs(r))/(1+np.abs(r))
+ 
         # Empty vector dor the L and R states
         al = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
         ar = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
@@ -152,8 +168,8 @@ class Advection:
         
         return x1, y1
     
-    def advect(self, shape,method, CFL): 
-        a = self.forms(shape)
+    def advect(self, method, CFL): 
+        a = self.forms()
         t = 0
         while t < self.tmax:
             a1 = self.fill_bcs(a)
