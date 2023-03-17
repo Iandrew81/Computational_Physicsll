@@ -47,6 +47,9 @@ This will create a simulation of advection with a top hat profile, using the Sup
 
 ## Analysis 
 
-Based on the obtained results from the top hat profile and the Gaussian profile, it can be inferred that the use of the Godunov approach and the Superbee1 slope limiter tends to produce less accurate results. On the other hand, when considering the top hat profile, the unlimited method i.e centered different method, was observed to have a lower L2 Norm error. However, upon analyzing the advected profile, it is evident that the unlimited method resulted in an undershoot and overshoot of the profile. Finally, the MC slope limiter yielded the best results on both profiles. The MC slope limiter was able to replicate the initial profile and exhibit a lower L2 norm error.
+Based on the obtained results from the top hat profile and the Gaussian profile, it can be inferred that the use of the Godunov approach and the Superbee1 slope limiter tends to produce less accurate results. On the other hand, when considering the top hat profile, the superbee 2 slope limiter i.e superbee from the book "Introduction to Computation Astrophysical Hydrodinamics" by Zingale, was observed to have a lower L2 Norm error. The unlimited method i.e. centered difference method yielded the best results on the gaussian profile due to its lack of discontinuities i.e strong gradiants. Overall, the superbee 2 slope limiter was able to replicate the initial profile and exhibit a lower L2 norm error for both profiles so it is recommended to use it in general.
+
+
+
 
 

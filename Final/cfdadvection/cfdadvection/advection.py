@@ -88,7 +88,7 @@ class Advection:
             if abs(a) > abs(b) and a*b > 0.0:
                 return a
             elif abs(b) > abs(a) and a*b > 0.0:
-                return a
+                return b
             else: 
                 return 0.0
 
