@@ -39,6 +39,7 @@ For example, if we want a simulation for eccentricity e=0.01671 for T=5 periods 
         
 The outputs of the code are saved in the outputfolder in a directory named Period_<T>-ecc_<e>, which is created if it does not exist. 
 These include a:
+        
         - history.txt that saves the history of the Earth's orbital motion
         - a directory called orbits_images with the simulation images for each time step 
         - and if its desired, the intial map and the GIF animation.
