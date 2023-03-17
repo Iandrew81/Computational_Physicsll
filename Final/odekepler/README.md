@@ -1,9 +1,8 @@
 # Two-body problem using RK2 and RK3
 
-This repository contains an implementation of Runge-Kutta of second and third order solvers for the two-body problem
+This repository contains an implementation of Runge-Kutta of second and third order solvers for the two-body problem  between the Earth and Sun using either RK2 or RK3
 
-using the Message Passing Interface (MPI). The solver uses a Fourier spectral method to solve the partial differential equation and the solution is obtained using the ODE integration routine provided by the scipy.integrate module.
-The solver is written in Python and consists of the following files:
+The script is written in Python and consists of the following files:
 
 ## 1) kepler.py
 
