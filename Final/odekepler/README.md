@@ -21,14 +21,23 @@ The code has been written in Python and requires the following packages to be in
 ## Usage
 
 The solver can be run in the terminal where the folder is located following command:
-
-    mpiexec -n <number of processes> python diffusionMPI.py
     
     python kepler.py -im -g -RK <order of the RK (2 or 3)> -T <number of periods> -e <eccentricity value>.
 
-where <number of processes> is the number of processes to be used in parallelization.
+where 
+    including -im allowsto save the initial map,  
+    including -g returns a GIF animation containing the Earth position and velocity at different times.
+    <order of the RK (2 or 3)>  allows to select the Runge-Kutta of second or third order. Must be integer values 2 or 3.
+    <number of periods> states the total number of periods of earth. Must be an integer value.
+    <eccentricity value> Must be an floating value.
 
-The output of the code is saved in the current and outputfolder directory, which is created if it does not exist. The output includes a logfile and a plot of the temperature as a function of temperature and time.
+The outputs of the code are saved in the outputfolder in a directory named Period_<T>-ecc_<e>, which is created if it does not exist. 
+
+The outputs include a history.txt that saves the history of the Earth's orbital motion, a directory called orbits_images with images for each time step and if its desired the intial map and the GIF animation.
+
+For example, if we want a simulation for eccentricity=0.01671 for T=5 using RK2 and saving the initial map and the GIF animation we must run as follow: 
+
+    python kepler.py -im -g -RK <order of the RK (2 or 3)> -T <number of periods> -e <eccentricity value>.
 
 ## 2) analysis.ipynb
 
