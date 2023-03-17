@@ -1,4 +1,4 @@
-### Advection Solver 
+# Advection Solver 
 
 This Python file contains a class called Advection which simulates advection of a perturbation with user-defined properties. The solver includes the following features:
 
@@ -8,10 +8,10 @@ The class calculates the limits, number of cells, and step size for the domain, 
 The simulation is carried out using one of six different numerical methods: Godunov, centered difference, minmod limiter, MC limiter, Superbee limiter1, and Superbee limiter2.
 
 
-How to use the Advection Solver
+## How to use the Advection Solver
 Import Advection from the Python file:
 
-import cfdadvection.advection as advec # Importing module
+    import cfdadvection.advection as advec # Importing module
 
 
 Create an instance of the class with the following arguments:
@@ -36,12 +36,12 @@ python
 advection_solver.plot(a)
 
 
-Example Usage
+## Example Usage
 
-from advection import Advection
+    from advection import Advection
 
-advection_solver = Advection(shape="top_hat", n_cells=100, p_veloc=1.0, num_periods=2)
-a = advection_solver.advect(method="superbee2", C=0.8)
-advection_solver.plot(a)
+    advection_solver = Advection(shape="top_hat", n_cells=100, p_veloc=1.0, num_periods=2)
+    a = advection_solver.advect(method="superbee2", C=0.8)
+    advection_solver.plot(a)
 
 This will create a simulation of advection with a top hat profile, using the Superbee limiter 2 numerical method. The simulation will run for 2 periods, with a Courant number of 0.8. The results of the simulation can be plotted using matplotlib by the user.
