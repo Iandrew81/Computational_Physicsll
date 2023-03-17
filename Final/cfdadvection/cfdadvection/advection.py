@@ -125,9 +125,12 @@ class Advection:
         elif method == "van_leer":
             #6th approach: Van Leer limiter
             for i in range(self.ilo-1, self.ihi +2):
-                r = (a[i]-a[i-1])/(a[i+1]-a[i])
-                slope[i] = (r+np.abs(r))/(1+np.abs(r))
- 
+                num = (r[i] + np.abs(r[i]))
+                den = 1+np.abs(r[i])
+                if den == np.inf:
+                    slope[i] = 2
+                else:
+                    slope[i] = num/den
         # Empty vector dor the L and R states
         al = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
         ar = np.zeros((self.nx + 2*self.ng), dtype = np.float64)
