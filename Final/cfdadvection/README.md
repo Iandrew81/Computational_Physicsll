@@ -43,3 +43,10 @@ The simulation results are stored in the Advection object, and can be plotted us
     advection_solver.plot(a)
 
 This will create a simulation of advection with a top hat profile, using the Superbee limiter 2 numerical method. The simulation will run for 2 periods, with a Courant number of 0.8. The results of the simulation can be plotted using matplotlib by the user.
+
+
+## Analysis 
+
+Based on the obtained results from the top hat profile and the Gaussian profile, it can be inferred that the use of the Godunov approach and the Superbee1 slope limiter tends to produce less accurate results. On the other hand, when considering the top hat profile, the unlimited method i.e centered different method, was observed to have a lower L2 Norm error. However, upon analyzing the advected profile, it is evident that the unlimited method resulted in an undershoot and overshoot of the profile. Finally, the MC slope limiter yielded the best results on both profiles. The MC slope limiter was able to replicate the initial profile and exhibit a lower L2 norm error.
+
+
