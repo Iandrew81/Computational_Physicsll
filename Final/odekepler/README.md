@@ -18,7 +18,7 @@ The code has been written in Python and requires the following packages to be in
     PIL
     argparse
 
-## Usage
+### Usage
 
 The solver can be run in the terminal where the folder is located following command:
     
@@ -31,15 +31,17 @@ where
     <number of periods> states the total number of periods of earth. Must be an integer value.
     <eccentricity value> Must be an floating value.
 
-The outputs of the code are saved in the outputfolder in a directory named Period_<T>-ecc_<e>, which is created if it does not exist. 
-
-## 2) outputs
-
-The outputs include a history.txt that saves the history of the Earth's orbital motion, a directory called orbits_images with the simulation images for each time step and, if its desired, the intial map and the GIF animation.
-
 For example, if we want a simulation for eccentricity e=0.01671 for T=5 periods using RK2 and saving the initial map and the GIF animatio,n we must run as follow: 
 
     python kepler.py -im -g -RK 2 -T 5 -e 0.01671.
+
+## 2) outputs
+        
+The outputs of the code are saved in the outputfolder in a directory named Period_<T>-ecc_<e>, which is created if it does not exist. 
+These include a:
+        - history.txt that saves the history of the Earth's orbital motion
+        - a directory called orbits_images with the simulation images for each time step 
+        - and if its desired, the intial map and the GIF animation.
 
 ## 3) analysis.ipynb
 
