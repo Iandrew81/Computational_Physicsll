@@ -1,26 +1,30 @@
 # Two-body problem unsing RK2 and RK3
 
-This repository contains an implementation of Runge-Kutta of second and third order solvers for the Two-body problem
+This repository contains an implementation of Runge-Kutta of second and third order solvers for the two-body problem
 
 using the Message Passing Interface (MPI). The solver uses a Fourier spectral method to solve the partial differential equation and the solution is obtained using the ODE integration routine provided by the scipy.integrate module.
 The solver is written in Python and consists of the following files:
 
 ## 1) kepler.py
 
-This file contains the main code for solving the Heat Equation using MPI. The code uses the mpi4py library to parallelize the code across multiple processors.
+This file contains the main code for solving the two-body problem between the Earth and Sun using either RK2 or RK3. The code uses the argparse library to set the parameters for each simulation.
 
 The code has been written in Python and requires the following packages to be installed:
 
     numpy
     matplotlib
-    scipy
-    mpi4py
+    os
+    glob
+    PIL
+    argparse
 
 ## Usage
 
-The solver can be run on a cluster or on a multi-core machine using the following command:
+The solver can be run in the terminal where the folder is located following command:
 
     mpiexec -n <number of processes> python diffusionMPI.py
+    
+    python kepler.py -im -g -RK <order of the RK (2 or 3)> -T <number of periods> -e <eccentricity value>.
 
 where <number of processes> is the number of processes to be used in parallelization.
 
