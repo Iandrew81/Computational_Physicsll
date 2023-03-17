@@ -21,19 +21,17 @@ Create an instance of the class with the following arguments:
     p_veloc: float, the perturbation velocity.
     num_periods: integer, the number of periods to simulate.
 
-advection_solver = advec.Advection(shape="top_hat", n_cells=100, p_veloc=1.0, num_periods=2)
+    advection_solver = advec.Advection(shape="top_hat", n_cells=100, p_veloc=1.0, num_periods=2)
 
 Call the advect method of the Advection class to solve the advection equation using one of the six numerical methods:
 
-advection_solver.advect(method="godunov", C=0.8)
+    advection_solver.advect(method="godunov", C=0.8)
 
 method can be one of "godunov", "unlimited", "minmod", "mc", "superbee1", and "superbee2". C is the Courant number, a numerical parameter that determines the stability of the simulation.
 
 The simulation results are stored in the Advection object, and can be plotted using the plot method that gives us the arrays with the information:
 
-python
-
-advection_solver.plot(a)
+    advection_solver.plot(a)
 
 
 ## Example Usage
